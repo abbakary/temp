@@ -1,0 +1,1618 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Customer & Order Tracking System">
+    <meta name="keywords" content="tracking, customer management, order management">
+    <meta name="author" content="Tracking App">
+    <link rel="icon" href="../assets/images/favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../assets/images/favicon.png" type="image/x-icon">
+    <title>Tracking System - Create Order</title>
+    <!-- Google font-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.css">
+    <!-- ico-font-->
+    <link rel="stylesheet" type="text/css" href="../assets/css/vendors/icofont.css">
+    <!-- Themify icon-->
+    <link rel="stylesheet" type="text/css" href="../assets/css/vendors/themify.css">
+    <!-- Flag icon-->
+    <link rel="stylesheet" type="text/css" href="../assets/css/vendors/flag-icon.css">
+    <!-- Feather icon-->
+    <link rel="stylesheet" type="text/css" href="../assets/css/vendors/feather-icon.css">
+    <!-- Plugins css start-->
+    <link rel="stylesheet" type="text/css" href="../assets/css/vendors/slick.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/vendors/slick-theme.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/vendors/scrollbar.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/vendors/animate.css">
+    <!-- Plugins css Ends-->
+    <!-- Bootstrap css-->
+    <link rel="stylesheet" type="text/css" href="../assets/css/vendors/bootstrap.css">
+    <!-- App css-->
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+    <link id="color" rel="stylesheet" href="../assets/css/color-1.css" media="screen">
+    <!-- Responsive css-->
+    <link rel="stylesheet" type="text/css" href="../assets/css/responsive.css">
+    
+    <!-- Custom Styles for Create Order Page -->
+    <style>
+      .order-container {
+        background: white;
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        border: 1px solid #e9ecef;
+      }
+      
+      .progress-bar-container {
+        margin-bottom: 30px;
+      }
+      
+      .progress-bar {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        transition: width 0.5s ease;
+      }
+      
+      .step-content {
+        display: none;
+      }
+      
+      .step-content.active {
+        display: block;
+        animation: fadeIn 0.5s;
+      }
+      
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      
+      .step-title {
+        font-size: 1.5em;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 25px;
+      }
+      
+      .form-label {
+        font-weight: 500;
+        color: #495057;
+        margin-bottom: 8px;
+      }
+      
+      .form-control, .form-select {
+        border-radius: 8px;
+        border: 1px solid #ced4da;
+        padding: 10px 15px;
+      }
+      
+      .form-control:focus, .form-select:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 0 0.25rem rgba(102, 126, 234, 0.25);
+      }
+      
+      .btn-primary {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border: none;
+        border-radius: 8px;
+        padding: 10px 25px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
+      
+      .btn-primary:hover {
+        background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+      }
+      
+      .btn-outline-secondary {
+        border-radius: 8px;
+        padding: 10px 25px;
+      }
+      
+      .service-card {
+        border: 1px solid #e9ecef;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 20px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        height: 100%;
+      }
+      
+      .service-card:hover {
+        border-color: #667eea;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.15);
+        transform: translateY(-3px);
+      }
+      
+      .service-card.selected {
+        border-color: #667eea;
+        background-color: rgba(102, 126, 234, 0.05);
+      }
+      
+      .service-card i {
+        font-size: 2rem;
+        margin-bottom: 15px;
+        color: #667eea;
+      }
+      
+      .service-card h5 {
+        margin-bottom: 10px;
+        color: #2c3e50;
+      }
+      
+      .service-card p {
+        margin-bottom: 0;
+        color: #6c757d;
+        font-size: 0.9em;
+      }
+      
+      .order-summary {
+        background: #f8f9fa;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+      
+      .order-summary h5 {
+        margin-bottom: 15px;
+        color: #2c3e50;
+        font-weight: 600;
+      }
+      
+      .summary-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #e9ecef;
+      }
+      
+      .summary-item:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+        font-weight: 600;
+        font-size: 1.1em;
+      }
+      
+      .customer-search-result {
+        border: 1px solid #e9ecef;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 10px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+      
+      .customer-search-result:hover {
+        background-color: #f8f9fa;
+        border-color: #667eea;
+      }
+      
+      .customer-search-result.selected {
+        background-color: rgba(102, 126, 234, 0.1);
+        border-color: #667eea;
+      }
+      
+      .customer-info {
+        background: #f8f9fa;
+        border-radius: 10px;
+        padding: 20px;
+        margin: 20px 0;
+        border: 1px solid #e9ecef;
+      }
+      
+      .invalid-feedback {
+        display: none;
+        color: #dc3545;
+        font-size: 0.875em;
+        margin-top: 0.25rem;
+      }
+      
+      .form-control.is-invalid, .form-select.is-invalid {
+        border-color: #dc3545;
+      }
+      
+      .form-control.is-invalid ~ .invalid-feedback,
+      .form-select.is-invalid ~ .invalid-feedback {
+        display: block;
+      }
+      
+      .step-buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px solid #e9ecef;
+      }
+      
+      @media (max-width: 768px) {
+        .order-container {
+          padding: 20px 15px;
+        }
+        
+        .service-card {
+          margin-bottom: 15px;
+        }
+      }
+    </style>
+  </head>
+  <body> 
+    <!-- loader starts-->
+    <div class="loader-wrapper">
+      <div class="loader"> 
+        <div class="loader4"></div>
+      </div>
+    </div>
+    <!-- loader ends-->
+    <!-- tap on top starts-->
+    <div class="tap-top"><i data-feather="chevrons-up"></i></div>
+    <!-- tap on tap ends-->
+    <!-- page-wrapper Start-->
+    <div class="page-wrapper compact-wrapper" id="pageWrapper">
+      <!-- Page Header Start-->
+      <div class="page-header">
+        <div class="header-wrapper row m-0">
+          <form class="form-inline search-full col" action="#" method="get">
+            <div class="form-group w-100">
+              <div class="Typeahead Typeahead--twitterUsers">
+                <div class="u-posRelative"> 
+                  <input class="demo-input Typeahead-input form-control-plaintext w-100" type="text" placeholder="Search customers, orders..." name="q" title="" autofocus>
+                  <div class="spinner-border Typeahead-spinner" role="status"><span class="sr-only">Loading... </span></div><i class="close-search" data-feather="x"></i>
+                </div>
+                <div class="Typeahead-menu"> </div>
+              </div>
+            </div>
+          </form>
+          <div class="header-logo-wrapper col-auto p-0">  
+            <div class="logo-wrapper"> <a href="index.html"><img class="img-fluid for-light" src="../assets/images/logo/logo_dark.png" alt="logo-light"><img class="img-fluid for-dark" src="../assets/images/logo/logo.png" alt="logo-dark"></a></div>
+            <div class="toggle-sidebar"> <i class="status_toggle middle sidebar-toggle" data-feather="align-center"></i></div>
+          </div>
+          <div class="left-header col-xxl-5 col-xl-6 col-lg-5 col-md-4 col-sm-3 p-0">
+            <div> <a class="toggle-sidebar" href="#"> <i class="iconly-Category icli"> </i></a>
+              <div class="d-flex align-items-center gap-2 ">
+                <h4 class="f-w-600"></h4>
+              </div>
+            </div>
+            <div class="welcome-content d-xl-block d-none"><span class="text-truncate col-12"></span></div>
+          </div>
+          <div class="nav-right col-xxl-7 col-xl-6 col-md-7 col-8 pull-right right-header p-0 ms-auto">
+            <ul class="nav-menus"> 
+              <li class="d-md-block d-none"> 
+                <div class="form search-form mb-0">
+                  <div class="input-group"><span class="input-icon">
+                      <svg>
+                        <use href="../assets/svg/icon-sprite.svg#search-header"></use>
+                      </svg>
+                      <input class="w-100" type="search" placeholder="Search customers, orders..." id="headerSearch"></span></div>
+                </div>
+              </li>
+              <li> 
+                <div class="mode"><i class="moon" data-feather="moon"> </i></div>
+              </li>
+              <li class="onhover-dropdown notification-down">
+                <div class="notification-box"> 
+                  <svg> 
+                    <use href="../assets/svg/icon-sprite.svg#notification-header"></use>
+                  </svg><span class="badge rounded-pill badge-secondary" id="notificationCount">0</span>
+                </div>
+                <div class="onhover-show-div notification-dropdown"> 
+                  <div class="card mb-0"> 
+                    <div class="card-header">
+                      <div class="common-space"> 
+                        <h4 class="text-start f-w-600">Notifications</h4>
+                        <div><span id="notificationNew">0 New</span></div>
+                      </div>
+                    </div>
+                    <div class="card-body" id="notificationList">
+                      <!-- Notifications will be populated here -->
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="profile-nav onhover-dropdown pe-0 py-0">
+                <div class="media profile-media"> <img class="b-r-10" src="../assets/images/dashboard/profile.png" alt="">
+                  <div class="media-body"> <span>Manager</span>
+                    <p class="mb-0">Admin <i class="middle fa fa-angle-down"> </i></p>
+                  </div>
+                </div>
+                <ul class="profile-dropdown onhover-show-div">
+                  <li><a href="#"><i data-feather="user"></i><span>Account </span></a></li>
+                  <li><a href="#"><i data-feather="settings"></i><span>Settings</span></a></li>
+                  <li><a href="#"><i data-feather="log-in"> </i><span>Log out</span></a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- Page Header Ends -->
+      <!-- Page Body Start-->
+      <div class="page-body-wrapper">
+        <!-- Page Sidebar Start-->
+        <div class="sidebar-wrapper" sidebar-layout="stroke-svg">
+          <div>
+            <div class="logo-wrapper"> <a href="index.html"><img class="img-fluid" src="../assets/images/logo/logo.png" alt=""></a>
+              <div class="toggle-sidebar"><i class="status_toggle middle sidebar-toggle" data-feather="grid"> </i></div>
+            </div>
+            <div class="logo-icon-wrapper"><a href="index.html"><img class="img-fluid" src="../assets/images/logo/logo-icon.png" alt=""></a></div>
+            <nav class="sidebar-main">
+              <div class="left-arrow" id="left-arrow"><i data-feather="arrow-left"></i></div>
+              <div id="sidebar-menu">
+                <ul class="sidebar-links" id="simple-bar">
+                  <li class="back-btn"><a href="index.html"><img class="img-fluid" src="../assets/images/logo/logo-icon.png" alt=""></a>
+                    <div class="mobile-back text-end"><span>Back</span><i class="fa fa-angle-right ps-2" aria-hidden="true"></i></div>
+                  </li>
+                  <li class="pin-title sidebar-main-title">
+                    <div> 
+                      <h6>Tracking System</h6>
+                    </div>
+                  </li>
+                  <li class="sidebar-main-title">
+                    <div>
+                      <h6 class="lan-1">Main Menu</h6>
+                    </div>
+                  </li>
+                  <li class="sidebar-list">
+                    <a class="sidebar-link sidebar-title link-nav" href="index.html">
+                      <svg class="stroke-icon">
+                        <use href="../assets/svg/icon-sprite.svg#stroke-home"></use>
+                      </svg>
+                      <span>Dashboard</span>
+                    </a>
+                  </li>
+                  <li class="sidebar-list">
+                    <a class="sidebar-link sidebar-title" href="#">
+                      <svg class="stroke-icon">
+                        <use href="../assets/svg/icon-sprite.svg#stroke-user"></use>
+                      </svg>
+                      <span>Customers</span>
+                    </a>
+                    <ul class="sidebar-submenu">
+                      <li><a href="customer-registration.html">New Registration</a></li>
+                      <li><a href="customer-list.html">View All</a></li>
+                      <li><a href="customer-search.html">Search Customer</a></li>
+                    </ul>
+                  </li>
+                  <li class="sidebar-list">
+                    <a class="sidebar-link sidebar-title active" href="#">
+                      <svg class="stroke-icon">
+                        <use href="../assets/svg/icon-sprite.svg#stroke-board"></use>
+                      </svg>
+                      <span>Orders</span>
+                    </a>
+                    <ul class="sidebar-submenu">
+                      <li><a href="order-create.html" class="active">Create Order</a></li>
+                      <li><a href="order-list.html">View All Orders</a></li>
+                      <li><a href="order-tracking.html">Track Orders</a></li>
+                    </ul>
+                  </li>
+                  <li class="sidebar-list">
+                    <a class="sidebar-link sidebar-title" href="#">
+                      <svg class="stroke-icon">
+                        <use href="../assets/svg/icon-sprite.svg#stroke-charts"></use>
+                      </svg>
+                      <span>Analytics</span>
+                    </a>
+                    <ul class="sidebar-submenu">
+                      <li><a href="analytics-overview.html">Overview</a></li>
+                      <li><a href="analytics-performance.html">Performance Metrics</a></li>
+                      <li><a href="analytics-customer.html">Customer Analytics</a></li>
+                      <li><a href="analytics-service.html">Service Analytics</a></li>
+                      <li><a href="analytics-revenue.html">Revenue Analysis</a></li>
+                    </ul>
+                  </li>
+                  <li class="sidebar-list">
+                    <a class="sidebar-link sidebar-title" href="#">
+                      <svg class="stroke-icon">
+                        <use href="../assets/svg/icon-sprite.svg#stroke-file"></use>
+                      </svg>
+                      <span>Reports</span>
+                    </a>
+                    <ul class="sidebar-submenu">
+                      <li><a href="reports-daily.html">Daily Reports</a></li>
+                      <li><a href="reports-customer.html">Customer Reports</a></li>
+                      <li><a href="reports-service.html">Service Reports</a></li>
+                      <li><a href="reports-financial.html">Financial Reports</a></li>
+                      <li><a href="reports-custom.html">Custom Reports</a></li>
+                    </ul>
+                  </li>
+                  <li class="sidebar-main-title">
+                    <div>
+                      <h6 class="lan-1">System</h6>
+                    </div>
+                  </li>
+                  <li class="sidebar-list">
+                    <a class="sidebar-link sidebar-title" href="#">
+                      <svg class="stroke-icon">
+                        <use href="../assets/svg/icon-sprite.svg#stroke-setting"></use>
+                      </svg>
+                      <span>Settings</span>
+                    </a>
+                    <ul class="sidebar-submenu">
+                      <li><a href="settings-general.html">General Settings</a></li>
+                      <li><a href="settings-services.html">Service Configuration</a></li>
+                      <li><a href="settings-users.html">User Management</a></li>
+                      <li><a href="settings-backup.html">Backup & Restore</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+              <div class="right-arrow" id="right-arrow"><i data-feather="arrow-right"></i></div>
+            </nav>
+          </div>
+        </div>
+        <!-- Page Sidebar Ends-->
+        <div class="page-body">
+          <div class="container-fluid">
+            <div class="page-title">
+              <div class="row">
+                <div class="col-sm-6 ps-0">
+                  <h3>Create New Order</h3>
+                  <div class="welcome-text mt-2">
+                    <p class="text-muted mb-0">Create a new service order for a customer</p>
+                  </div>
+                </div>
+                <div class="col-sm-6 pe-0">
+                  <div class="d-flex align-items-center justify-content-end gap-3">
+                    <div class="dashboard-actions">
+                      <button class="btn btn-outline-primary" onclick="window.location.href='index.html'">
+                        <i data-feather="arrow-left" class="me-2"></i>Back to Dashboard
+                      </button>
+                    </div>
+                  </div>
+                  <ol class="breadcrumb mt-2">
+                    <li class="breadcrumb-item"><a href="index.html">
+                        <svg class="stroke-icon">
+                          <use href="../assets/svg/icon-sprite.svg#stroke-home"></use>
+                        </svg></a></li>
+                    <li class="breadcrumb-item"><a href="#">Orders</a></li>
+                    <li class="breadcrumb-item active">Create Order</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Container-fluid starts-->
+          <div class="container-fluid">
+            <div class="order-container">
+              <!-- Progress Bar -->
+              <div class="progress-bar-container">
+                <div class="progress">
+                  <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" id="orderProgressBar">Step 1 of 4</div>
+                </div>
+              </div>
+
+              <!-- Multi-step Form -->
+              <form id="orderForm" novalidate>
+                <!-- Step 1: Customer Information -->
+                <div id="step1" class="step-content active">
+                  <h4 class="step-title">Step 1: Customer Information</h4>
+                  <div class="row">
+                    <div class="col-md-8 mb-4">
+                      <label for="customerSearch" class="form-label">Search Customer</label>
+                      <div class="input-group">
+                        <input type="text" class="form-control" id="customerSearch" placeholder="Search by name, phone, or email" required>
+                        <button class="btn btn-outline-secondary" type="button" id="searchCustomerBtn">
+                          <i data-feather="search"></i>
+                        </button>
+                      </div>
+                      <div class="invalid-feedback" id="customerSearchFeedback">Please enter a search term</div>
+                    </div>
+                    <div class="col-md-4 mb-4 d-flex align-items-end">
+                      <div class="w-100">
+                        <label class="form-label d-block mb-2">Or</label>
+                        <button type="button" class="btn btn-outline-primary w-100" id="newCustomerBtn">
+                          <i data-feather="user-plus" class="me-2"></i>Add New Customer
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- Customer Search Results -->
+                  <div id="customerSearchResults" class="mb-4" style="display: none;">
+                    <h6 class="mb-3">Search Results</h6>
+                    <div id="customerResultsList"></div>
+                  </div>
+                  
+                  <!-- Selected Customer Information -->
+                  <div id="selectedCustomerInfo" class="customer-info" style="display: none;">
+                    <h6 class="mb-3">Selected Customer</h6>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <p><strong>Name:</strong> <span id="customerName">-</span></p>
+                        <p><strong>Phone:</strong> <span id="customerPhone">-</span></p>
+                      </div>
+                      <div class="col-md-6">
+                        <p><strong>Email:</strong> <span id="customerEmail">-</span></p>
+                        <p><strong>Address:</strong> <span id="customerAddress">-</span></p>
+                      </div>
+                    </div>
+                    <input type="hidden" id="customerId" name="customerId">
+                  </div>
+                  
+                  <div class="step-buttons">
+                    <button type="button" class="btn btn-outline-secondary" onclick="window.location.href='index.html'">
+                      <i data-feather="x" class="me-2"></i>Cancel
+                    </button>
+                    <button type="button" class="btn btn-primary" id="nextToStep2">
+                      Next <i data-feather="arrow-right" class="ms-2"></i>
+                    </button>
+                  </div>
+                </div>
+                
+                <!-- Step 2: Service Selection -->
+                <div id="step2" class="step-content">
+                  <h4 class="step-title">Step 2: Select Service Type</h4>
+                  <div class="row">
+                    <div class="col-md-4 mb-4">
+                      <div class="service-card text-center" data-service-type="car-service">
+                        <i data-feather="settings"></i>
+                        <h5>Car Service</h5>
+                        <p>General maintenance and repair services</p>
+                      </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                      <div class="service-card text-center" data-service-type="tire-sales">
+                        <i data-feather="circle"></i>
+                        <h5>Tire Sales</h5>
+                        <p>New tires and wheel services</p>
+                      </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                      <div class="service-card text-center" data-service-type="consultation">
+                        <i data-feather="message-square"></i>
+                        <h5>Consultation</h5>
+                        <p>Expert advice and consultation</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="invalid-feedback" id="serviceTypeFeedback">Please select a service type</div>
+                  <input type="hidden" id="serviceType" name="serviceType" required>
+                  
+                  <div class="step-buttons">
+                    <button type="button" class="btn btn-outline-secondary" id="backToStep1">
+                      <i data-feather="arrow-left" class="me-2"></i>Back
+                    </button>
+                    <button type="button" class="btn btn-primary" id="nextToStep3">
+                      Next <i data-feather="arrow-right" class="ms-2"></i>
+                    </button>
+                  </div>
+                </div>
+                </div>
+                
+                <!-- Step 3: Service Details -->
+                <div id="step3" class="step-content">
+                  <h4 class="step-title">Step 3: Service Details</h4>
+                  <div id="serviceDetailsContent">
+                    <!-- Service details will be loaded dynamically based on selected service type -->
+                    <div class="alert alert-info">
+                      <i data-feather="info" class="me-2"></i> Please select a service type to see available options.
+                    </div>
+                  </div>
+                  
+                  <div class="step-buttons">
+                    <button type="button" class="btn btn-outline-secondary" id="backToStep2">
+                      <i data-feather="arrow-left" class="me-2"></i>Back
+                    </button>
+                    <button type="button" class="btn btn-primary" id="nextToStep4">
+                      Next <i data-feather="arrow-right" class="ms-2"></i>
+                    </button>
+                  </div>
+                </div>
+                
+                <!-- Step 4: Additional Information -->
+                <div id="step4" class="step-content">
+                  <h4 class="step-title">Step 4: Additional Information</h4>
+                  <div class="row">
+                    <div class="col-md-6 mb-4">
+                      <label for="priority" class="form-label">Priority</label>
+                      <select class="form-select" id="priority" name="priority" required>
+                        <option value="" disabled selected>Select priority</option>
+                        <option value="normal">Normal</option>
+                        <option value="high">High</option>
+                        <option value="urgent">Urgent</option>
+                      </select>
+                      <div class="invalid-feedback">Please select a priority</div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                      <label for="estimatedDuration" class="form-label">Estimated Duration (minutes)</label>
+                      <input type="number" class="form-control" id="estimatedDuration" name="estimatedDuration" min="15" step="15" value="60" required>
+                      <div class="invalid-feedback" id="estimatedDurationFeedback">Please enter a valid duration</div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12 mb-4">
+                      <label for="notes" class="form-label">Notes</label>
+                      <textarea class="form-control" id="notes" name="notes" rows="3" placeholder="Enter any additional notes or special instructions"></textarea>
+                    </div>
+                  </div>
+                  
+                  <div class="step-buttons">
+                    <button type="button" class="btn btn-outline-secondary" id="backToStep3">
+                      <i data-feather="arrow-left" class="me-2"></i>Back
+                    </button>
+                    <button type="submit" class="btn btn-primary" id="submitOrderBtn">
+                      <i data-feather="check" class="me-2"></i>Create Order
+                    </button>
+                  </div>
+                </div>
+                
+                <!-- Order Summary Step -->
+                <div id="step5" class="step-content">
+                  <h4 class="step-title">Order Confirmation</h4>
+                  <div class="order-summary">
+                    <h5>Order Summary</h5>
+                    <div id="orderSummaryContent">
+                      <!-- Order summary will be populated here -->
+                    </div>
+                  </div>
+                  
+                  <div class="step-buttons">
+                    <button type="button" class="btn btn-outline-secondary" id="backToStep4">
+                      <i data-feather="arrow-left" class="me-2"></i>Back
+                    </button>
+                    <button type="button" class="btn btn-success" id="confirmOrderBtn">
+                      <i data-feather="check-circle" class="me-2"></i>Confirm & Place Order
+                    </button>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="col-lg-4">
+                <!-- Order Summary Section -->
+                <div class="form-section">
+                  <h4 class="section-title">Order Summary</h4>
+                  <div class="order-summary">
+                    <div id="orderSummaryContent">
+                      <div class="text-center text-muted py-4">
+                        <i data-feather="file-text" style="width: 48px; height: 48px;"></i>
+                        <p class="mt-2">Order summary will appear here as you fill in the form</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Recent Orders Section -->
+                <div class="form-section">
+                  <h4 class="section-title">Recent Orders</h4>
+                  <div id="recentOrders">
+                    <div class="text-center text-muted py-4">
+                      <i data-feather="clock" style="width: 48px; height: 48px;"></i>
+                      <p class="mt-2">No recent orders</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Container-fluid Ends-->
+        </div>
+        <!-- Multi-step Form Script -->
+        <script>
+          document.addEventListener('DOMContentLoaded', function() {
+            // Initialize variables
+            let currentStep = 1;
+            const totalSteps = 4;
+            
+            // Navigation functions
+            function updateProgressBar() {
+              const progressPercentage = ((currentStep - 1) / (totalSteps - 1)) * 100;
+              document.getElementById('orderProgressBar').style.width = `${progressPercentage}%`;
+              document.getElementById('orderProgressBar').setAttribute('aria-valuenow', progressPercentage);
+              document.getElementById('orderProgressBar').textContent = `Step ${currentStep} of ${totalSteps}`;
+            }
+            
+            function showStep(stepNumber) {
+              // Hide all steps
+              document.querySelectorAll('.step-content').forEach(step => {
+                step.classList.remove('active');
+              });
+              
+              // Show current step
+              const currentStepElement = document.getElementById(`step${stepNumber}`);
+              if (currentStepElement) {
+                currentStepElement.classList.add('active');
+                currentStep = stepNumber;
+                updateProgressBar();
+              }
+            }
+            
+            // Navigation event listeners
+            document.getElementById('nextToStep2')?.addEventListener('click', function(e) {
+              e.preventDefault();
+              const customerId = document.getElementById('customerId').value;
+              if (!customerId) {
+                alert('Please select a customer or add a new one');
+                return;
+              }
+              showStep(2);
+            });
+            
+            document.getElementById('nextToStep3')?.addEventListener('click', function(e) {
+              e.preventDefault();
+              const serviceType = document.getElementById('serviceType').value;
+              if (!serviceType) {
+                alert('Please select a service type');
+                return;
+              }
+              showStep(3);
+              // Load service details here if needed
+            });
+            
+            document.getElementById('nextToStep4')?.addEventListener('click', function(e) {
+              e.preventDefault();
+              // Add any validation for step 3 here
+              showStep(4);
+            });
+            
+            // Back buttons
+            document.getElementById('backToStep1')?.addEventListener('click', () => showStep(1));
+            document.getElementById('backToStep2')?.addEventListener('click', () => showStep(2));
+            document.getElementById('backToStep3')?.addEventListener('click', () => showStep(3));
+            document.getElementById('backToStep4')?.addEventListener('click', () => showStep(4));
+            
+            // Service card selection
+            document.querySelectorAll('.service-card').forEach(card => {
+              card.addEventListener('click', function() {
+                // Remove active class from all cards
+                document.querySelectorAll('.service-card').forEach(c => {
+                  c.classList.remove('active');
+                });
+                
+                // Add active class to clicked card
+                this.classList.add('active');
+                
+                // Update hidden input
+                const serviceType = this.getAttribute('data-service-type');
+                document.getElementById('serviceType').value = serviceType;
+              });
+            });
+            
+            // Form submission
+            document.getElementById('orderForm')?.addEventListener('submit', function(e) {
+              e.preventDefault();
+              // Validate form
+              if (this.checkValidity()) {
+                showStep(5);
+                updateOrderSummary();
+              } else {
+                e.stopPropagation();
+                this.classList.add('was-validated');
+              }
+            });
+            
+            // Confirm order button
+            document.getElementById('confirmOrderBtn')?.addEventListener('click', function() {
+              // Handle order confirmation
+              alert('Order created successfully!');
+              // Redirect to order list or show success message
+              // window.location.href = 'order-list.html';
+            });
+            
+            // Initialize first step
+            showStep(1);
+            
+            // Initialize form validation
+            (function () {
+              'use strict'
+              
+              // Fetch all the forms we want to apply custom Bootstrap validation styles to
+              var forms = document.querySelectorAll('.needs-validation')
+              
+              // Loop over them and prevent submission
+              Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                  form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                      event.preventDefault()
+                      event.stopPropagation()
+                    }
+                    
+                    form.classList.add('was-validated')
+                  }, false)
+                })
+            })()
+            
+            // Initialize tooltips
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+              return new bootstrap.Tooltip(tooltipTriggerEl)
+            });
+          });
+          
+          // Function to update order summary
+          function updateOrderSummary() {
+            const summaryContent = document.getElementById('orderSummaryContent');
+            if (!summaryContent) return;
+            
+            const customerName = document.getElementById('customerName')?.textContent || 'Not selected';
+            const serviceType = document.getElementById('serviceType')?.value || 'Not selected';
+            const priority = document.getElementById('priority')?.value || 'Normal';
+            const estimatedDuration = document.getElementById('estimatedDuration')?.value || '60';
+            const notes = document.getElementById('notes')?.value || 'None';
+            
+            summaryContent.innerHTML = `
+              <div class="mb-3">
+                <h6>Customer</h6>
+                <p>${customerName}</p>
+              </div>
+              <div class="mb-3">
+                <h6>Service Type</h6>
+                <p>${serviceType}</p>
+              </div>
+              <div class="mb-3">
+                <h6>Priority</h6>
+                <p>${priority}</p>
+              </div>
+              <div class="mb-3">
+                <h6>Estimated Duration</h6>
+                <p>${estimatedDuration} minutes</p>
+              </div>
+              <div class="mb-3">
+                <h6>Notes</h6>
+                <p>${notes}</p>
+              </div>
+            `;
+          }
+        </script>
+        
+        <!-- footer start-->
+        <footer class="footer">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-12 footer-copyright text-center">
+                <p class="mb-0">Copyright 2024 Tracking System All rights reserved.</p>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+    <!-- latest jquery-->
+    <script src="../assets/js/jquery.min.js"></script>
+    <!-- Bootstrap js-->
+    <script src="../assets/js/bootstrap/bootstrap.bundle.min.js"></script>
+    <!-- feather icon js-->
+    <script src="../assets/js/icons/feather-icon/feather.min.js"></script>
+    <script src="../assets/js/icons/feather-icon/feather-icon.js"></script>
+    <!-- scrollbar js-->
+    <script src="../assets/js/scrollbar/simplebar.js"></script>
+    <script src="../assets/js/scrollbar/custom.js"></script>
+    <!-- Sidebar jquery-->
+    <script src="../assets/js/config.js"></script>
+    <!-- Plugins JS start-->
+    <script src="../assets/js/sidebar-menu.js"></script>
+    <script src="../assets/js/sidebar-pin.js"></script>
+    <script src="../assets/js/slick/slick.min.js"></script>
+    <script src="../assets/js/slick/slick.js"></script>
+    <script src="../assets/js/header-slick.js"></script>
+    <!-- Plugins JS Ends-->
+    <!-- Theme js-->
+    <script src="../assets/js/script.js"></script>
+    <!-- Tracking System Core -->
+    <script src="tracking-system.js"></script>
+    <!-- Error Handling Utilities -->
+    <script src="error-handling.js"></script>
+    <!-- Create Order Page Script -->
+    <script>
+      // Initialize create order page
+      $(document).ready(function() {
+        try {
+          // Initialize feather icons
+          if (typeof feather !== 'undefined') {
+            feather.replace();
+          }
+          
+          // Initialize tracking system
+          if (typeof TrackingSystem !== 'undefined') {
+            TrackingSystem.init({
+              debug: true
+            });
+          }
+          
+          // Initialize create order functionality
+          initializeCreateOrder();
+          
+          // Load recent orders
+          loadRecentOrders();
+        } catch (error) {
+          console.error('Failed to initialize create order page:', error);
+          showUserMessage('Failed to initialize page, please refresh', 'error');
+        }
+      });
+      
+      // Create order functionality
+      function initializeCreateOrder() {
+        // Customer search functionality
+        const customerSearch = document.getElementById('customerSearch');
+        const searchCustomerBtn = document.getElementById('searchCustomerBtn');
+        const customerSearchResults = document.getElementById('customerSearchResults');
+        const customerResultsList = document.getElementById('customerResultsList');
+        const selectedCustomerInfo = document.getElementById('selectedCustomerInfo');
+        
+        // Search customer button click
+        searchCustomerBtn.addEventListener('click', function() {
+          searchCustomers();
+        });
+        
+        // Customer search input enter key
+        customerSearch.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') {
+            searchCustomers();
+          }
+        });
+        
+        // New customer button click
+        document.getElementById('newCustomerBtn').addEventListener('click', function() {
+          window.location.href = 'customer-registration.html';
+        });
+        
+        // Service type selection
+        const serviceTypeCards = document.querySelectorAll('.service-type-card');
+        serviceTypeCards.forEach(card => {
+          card.addEventListener('click', function() {
+            // Remove selected class from all cards
+            serviceTypeCards.forEach(c => c.classList.remove('selected'));
+            
+            // Add selected class to clicked card
+            this.classList.add('selected');
+            
+            // Set service type value
+            const serviceType = this.dataset.serviceType;
+            document.getElementById('serviceType').value = serviceType;
+            
+            // Clear any previous validation error
+            document.getElementById('serviceType').classList.remove('is-invalid');
+            
+            // Show service details section
+            showServiceDetails(serviceType);
+            
+            // Update order summary
+            updateOrderSummary();
+          });
+        });
+
+        $('#serviceDetailsContent').on('change', 'input, select, textarea', function() {
+            updateOrderSummary();
+        });
+        
+        // Priority change
+        document.getElementById('priority').addEventListener('change', function() {
+          updateOrderSummary();
+        });
+        
+        // Estimated duration change
+        document.getElementById('estimatedDuration').addEventListener('input', function() {
+          updateOrderSummary();
+        });
+        
+        // Notes change
+        document.getElementById('notes').addEventListener('input', function() {
+          updateOrderSummary();
+        });
+        
+        // Submit order button click
+        document.getElementById('submitOrderBtn').addEventListener('click', function() {
+          submitOrder();
+        });
+      }
+      
+      // Search customers function
+      function searchCustomers() {
+        const searchTerm = document.getElementById('customerSearch').value.trim();
+        const customerSearchResults = document.getElementById('customerSearchResults');
+        const customerResultsList = document.getElementById('customerResultsList');
+        
+        // Clear previous validation error
+        document.getElementById('customerSearch').classList.remove('is-invalid');
+        
+        if (!searchTerm) {
+          document.getElementById('customerSearch').classList.add('is-invalid');
+          document.getElementById('customerSearchFeedback').textContent = 'Please enter a search term';
+          return;
+        }
+        
+        // Show loading state
+        customerSearchResults.style.display = 'block';
+        customerResultsList.innerHTML = '<div class="text-center"><div class="spinner-border text-primary" role="status"><span class="sr-only">Loading...</span></div></div>';
+        
+        // Simulate API call
+        setTimeout(() => {
+          try {
+            // This would be an actual API call in a real implementation
+            // For demo purposes, we'll use mock data
+            const mockCustomers = [
+              { id: '1', name: 'John Doe', phone: '(555) 123-4567', email: 'john@example.com', address: '123 Main St, City' },
+              { id: '2', name: 'Jane Smith', phone: '(555) 987-6543', email: 'jane@example.com', address: '456 Oak Ave, Town' },
+              { id: '3', name: 'Robert Johnson', phone: '(555) 456-7890', email: 'robert@example.com', address: '789 Pine Rd, Village' }
+            ];
+            
+            // Filter customers based on search term
+            const filteredCustomers = mockCustomers.filter(customer => 
+              customer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+              customer.phone.includes(searchTerm) ||
+              customer.email.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+            
+            if (filteredCustomers.length === 0) {
+              customerResultsList.innerHTML = '<div class="text-center text-muted py-3">No customers found matching your search</div>';
+            } else {
+              customerResultsList.innerHTML = '';
+              filteredCustomers.forEach(customer => {
+                const customerResult = document.createElement('div');
+                customerResult.className = 'customer-search-result';
+                customerResult.innerHTML = `
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <h6 class="mb-1">${customer.name}</h6>
+                      <p class="mb-0 text-muted">${customer.phone} | ${customer.email}</p>
+                    </div>
+                    <button class="btn btn-sm btn-outline-primary select-customer-btn" data-customer-id="${customer.id}">
+                      Select
+                    </button>
+                  </div>
+                `;
+                
+                // Add click event to select button
+                const selectBtn = customerResult.querySelector('.select-customer-btn');
+                selectBtn.addEventListener('click', function() {
+                  selectCustomer(customer);
+                });
+                
+                customerResultsList.appendChild(customerResult);
+              });
+            }
+          } catch (error) {
+            console.error('Failed to search customers:', error);
+            customerResultsList.innerHTML = '<div class="text-center text-danger py-3">Failed to search customers. Please try again.</div>';
+          }
+        }, 1000);
+      }
+      
+      // Select customer function
+      function selectCustomer(customer) {
+        // Update selected customer info
+        document.getElementById('customerName').textContent = customer.name;
+        document.getElementById('customerPhone').textContent = customer.phone;
+        document.getElementById('customerEmail').textContent = customer.email;
+        document.getElementById('customerAddress').textContent = customer.address;
+        document.getElementById('customerId').value = customer.id;
+        
+        // Show selected customer info
+        document.getElementById('selectedCustomerInfo').classList.add('visible');
+        
+        // Hide search results
+        document.getElementById('customerSearchResults').style.display = 'none';
+        
+        // Clear search input
+        document.getElementById('customerSearch').value = '';
+        
+        // Update order summary
+        updateOrderSummary();
+      }
+      
+      // Show service details function
+      function showServiceDetails(serviceType) {
+        const serviceDetailsSection = document.getElementById('serviceDetailsSection');
+        const serviceDetailsContent = document.getElementById('serviceDetailsContent');
+        
+        // Show service details section
+        serviceDetailsSection.style.display = 'block';
+        
+        // Clear previous content
+        serviceDetailsContent.innerHTML = '<div class="text-center"><div class="spinner-border text-primary" role="status"><span class="sr-only">Loading...</span></div></div>';
+        
+        // Simulate loading service details
+        setTimeout(() => {
+          try {
+            let detailsHTML = '';
+            
+            switch (serviceType) {
+              case 'car-service':
+                detailsHTML = `
+                  <div class="row">
+                    <div class="col-md-6 mb-3">
+                      <label for="plateNumber" class="form-label">Plate Number</label>
+                      <input type="text" class="form-control" id="plateNumber" name="plateNumber" placeholder="e.g. T123 ABC" required>
+                      <div class="invalid-feedback" id="plateNumberFeedback"></div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label for="carMake" class="form-label">Car Make</label>
+                      <input type="text" class="form-control" id="carMake" name="carMake" placeholder="e.g. Toyota, Honda, Ford" required>
+                      <div class="invalid-feedback" id="carMakeFeedback"></div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6 mb-3">
+                      <label for="carModel" class="form-label">Car Model</label>
+                      <input type="text" class="form-control" id="carModel" name="carModel" placeholder="e.g. Camry, Civic, Mustang" required>
+                      <div class="invalid-feedback" id="carModelFeedback"></div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label for="vehicleType" class="form-label">Vehicle Type</label>
+                      <select class="form-select" id="vehicleType" name="vehicleType" required>
+                        <option value="">Select vehicle type</option>
+                        <option value="sedan">Sedan</option>
+                        <option value="suv">SUV</option>
+                        <option value="truck">Truck</option>
+                        <option value="van">Van</option>
+                        <option value="motorcycle">Motorcycle</option>
+                        <option value="other">Other</option>
+                      </select>
+                      <div class="invalid-feedback" id="vehicleTypeFeedback"></div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 mb-3">
+                      <label class="form-label">Service Selection</label>
+                      <div class="service-checkbox-group">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" name="carServices" value="oil-change" id="serviceOilChange">
+                          <label class="form-check-label" for="serviceOilChange">Oil Change</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" name="carServices" value="engine-diagnostics" id="serviceEngineDiagnostics">
+                          <label class="form-check-label" for="serviceEngineDiagnostics">Engine Diagnostics</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" name="carServices" value="brake-repair" id="serviceBrakeRepair">
+                          <label class="form-check-label" for="serviceBrakeRepair">Brake Repair</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" name="carServices" value="tire-rotation" id="serviceTireRotation">
+                          <label class="form-check-label" for="serviceTireRotation">Tire Rotation</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" name="carServices" value="wheel-alignment" id="serviceWheelAlignment">
+                          <label class="form-check-label" for="serviceWheelAlignment">Wheel Alignment</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" name="carServices" value="battery-check" id="serviceBatteryCheck">
+                          <label class="form-check-label" for="serviceBatteryCheck">Battery Check</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" name="carServices" value="fluid-topup" id="serviceFluidTopUp">
+                          <label class="form-check-label" for="serviceFluidTopUp">Fluid Top-Up</label>
+                        </div>
+                      </div>
+                      <div class="invalid-feedback" id="carServiceTypeFeedback"></div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 mb-3">
+                      <label for="problemDescription" class="form-label">Problem Description</label>
+                      <textarea class="form-control" id="problemDescription" name="problemDescription" rows="3" placeholder="Describe the issue or service needed in detail"></textarea>
+                    </div>
+                  </div>
+                `;
+                break;
+                
+              case 'tire-sales':
+                detailsHTML = `
+                  <div class="row">
+                    <div class="col-md-6 mb-3">
+                      <label for="tireItemName" class="form-label">Item Name</label>
+                      <select class="form-select" id="tireItemName" name="tireItemName" required>
+                        <option value="">Select Tire Type</option>
+                        <option value="all-season">All-Season</option>
+                        <option value="summer">Summer</option>
+                        <option value="winter">Winter</option>
+                        <option value="performance">Performance</option>
+                        <option value="off-road">Off-Road</option>
+                        <option value="eco">Eco-Friendly</option>
+                        <option value="run-flat">Run-Flat</option>
+                      </select>
+                      <div class="invalid-feedback" id="tireItemNameFeedback"></div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label for="tireBrand" class="form-label">Brand</label>
+                      <select class="form-select" id="tireBrand" name="tireBrand">
+                        <option value="">Select a brand</option>
+                        <option value="michelin">Michelin</option>
+                        <option value="bridgestone">Bridgestone</option>
+                        <option value="goodyear">Goodyear</option>
+                        <option value="continental">Continental</option>
+                        <option value="pirelli">Pirelli</option>
+                        <option value="other">Other</option>
+                      </select>
+                      <div class="invalid-feedback" id="tireBrandFeedback"></div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6 mb-3">
+                      <label for="tireQuantity" class="form-label">Quantity</label>
+                      <input type="number" class="form-control" id="tireQuantity" name="tireQuantity" min="1" value="1" required>
+                      <div class="invalid-feedback" id="tireQuantityFeedback"></div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label for="tireType" class="form-label">Tire Condition</label>
+                      <select class="form-select" id="tireType" name="tireType" required>
+                        <option value="">Select condition</option>
+                        <option value="new">New</option>
+                        <option value="used">Used</option>
+                        <option value="refurbished">Refurbished</option>
+                      </select>
+                      <div class="invalid-feedback" id="tireTypeFeedback"></div>
+                    </div>
+                  </div>
+                `;
+                break;
+                
+              case 'consultation':
+                detailsHTML = `
+                  <div class="row">
+                    <div class="col-md-6 mb-3">
+                      <label for="inquiryType" class="form-label">Inquiry Type</label>
+                      <select class="form-select" id="inquiryType" name="inquiryType" required>
+                        <option value="">Select consultation type</option>
+                        <option value="vehicle-purchase">Vehicle Purchase</option>
+                        <option value="service-advice">Service Advice</option>
+                        <option value="maintenance-plan">Maintenance Plan</option>
+                        <option value="upgrade-options">Upgrade Options</option>
+                        <option value="other">Other</option>
+                      </select>
+                      <div class="invalid-feedback" id="inquiryTypeFeedback"></div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label for="contactPreference" class="form-label">Contact Preference</label>
+                      <select class="form-select" id="contactPreference" name="contactPreference" required>
+                        <option value="">Select preference</option>
+                        <option value="phone">Phone</option>
+                        <option value="email">Email</option>
+                      </select>
+                      <div class="invalid-feedback" id="contactPreferenceFeedback"></div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6 mb-3">
+                      <label for="followUpDate" class="form-label">Follow-up Date (Optional)</label>
+                      <input type="date" class="form-control" id="followUpDate" name="followUpDate">
+                    </div>
+                    <div class="col-md-12 mb-3">
+                      <label for="inquiryQuestions" class="form-label">Questions</label>
+                      <textarea class="form-control" id="inquiryQuestions" name="inquiryQuestions" rows="4" placeholder="Enter customer's questions here" required></textarea>
+                      <div class="invalid-feedback" id="inquiryQuestionsFeedback"></div>
+                    </div>
+                  </div>
+                `;
+                break;
+            }
+            
+            // Update service details content
+            serviceDetailsContent.innerHTML = detailsHTML;
+            
+            // Add event listeners to form fields
+            const formFields = serviceDetailsContent.querySelectorAll('input, select, textarea');
+            formFields.forEach(field => {
+              field.addEventListener('change', function() {
+                // Clear any validation error
+                this.classList.remove('is-invalid');
+                
+                // Update order summary
+                updateOrderSummary();
+              });
+            });
+            
+            // Initialize feather icons
+            if (typeof feather !== 'undefined') {
+              feather.replace();
+            }
+          } catch (error) {
+            console.error('Failed to load service details:', error);
+            serviceDetailsContent.innerHTML = '<div class="text-center text-danger py-3">Failed to load service details. Please try again.</div>';
+          }
+        }, 500);
+      }
+      
+      // Update order summary function
+      function updateOrderSummary() {
+        const orderSummaryContent = document.getElementById('orderSummaryContent');
+        
+        // Get form values
+        let isValid = true;
+        const customerId = document.getElementById('customerId').value;
+        const customerName = document.getElementById('customerName').textContent;
+        const serviceType = document.getElementById('serviceType').value;
+        const priority = document.getElementById('priority').value;
+        const estimatedDuration = document.getElementById('estimatedDuration').value;
+        const notes = document.getElementById('notes').value;
+        
+        // Check if we have the minimum required information
+        if (!customerId) {
+          orderSummaryContent.innerHTML = `
+            <div class="text-center text-muted py-4">
+              <i data-feather="file-text" style="width: 48px; height: 48px;"></i>
+              <p class="mt-2">Order summary will appear here as you fill in the form</p>
+            </div>
+          `;
+          
+          // Initialize feather icons
+          if (typeof feather !== 'undefined') {
+            feather.replace();
+          }
+          
+          return;
+        }
+
+        if (!serviceType) {
+            orderSummaryContent.innerHTML = `
+                <div class="order-summary-item">
+                    <span>Customer</span>
+                    <span>${customerName}</span>
+                </div>
+                <div class="text-center text-muted py-3">Please select a service type.</div>
+            `;
+            feather.replace();
+            return;
+        }
+        
+        // Get service type name
+        let serviceTypeName = '';
+        let servicePrice = 0;
+        
+        switch (serviceType) {
+          case 'car-service':
+            serviceTypeName = 'Car Service';
+            servicePrice = 100; // Base price
+            const selectedServices = Array.from(document.querySelectorAll('input[name="carServices"]:checked')).map(cb => cb.nextElementSibling.textContent);
+            if (selectedServices.length > 0) {
+                servicePrice += selectedServices.length * 25; // Add price per service
+            }
+            break;
+          case 'tire-sales':
+            serviceTypeName = 'Tire Sales';
+            servicePrice = 200; // Base price
+            const qty = parseInt(document.getElementById('tireQuantity')?.value || '1');
+            servicePrice *= qty;
+            break;
+          case 'consultation':
+            serviceTypeName = 'Consultation';
+            servicePrice = 50; // Base price
+            break;
+        }
+        
+        // Calculate priority multiplier
+        let priorityMultiplier = 1;
+        switch (priority) {
+          case 'high':
+            priorityMultiplier = 1.2;
+            break;
+          case 'urgent':
+            priorityMultiplier = 1.5;
+            break;
+        }
+        
+        // Calculate total price
+        let totalPrice = servicePrice * priorityMultiplier;
+        
+        // Add duration-based pricing
+        if (estimatedDuration) {
+          const durationHours = estimatedDuration / 60;
+          totalPrice += durationHours * 50; // $50 per hour
+        }
+        
+        // Format price
+        const formattedPrice = totalPrice.toFixed(2);
+        
+        // Update order summary
+        orderSummaryContent.innerHTML = `
+          <div class="order-summary-item">
+            <span>Customer</span>
+            <span>${customerName}</span>
+          </div>
+          <div class="order-summary-item">
+            <span>Service Type</span>
+            <span>${serviceTypeName}</span>
+          </div>
+          <div class="order-summary-item">
+            <span>Priority</span>
+            <span>${priority.charAt(0).toUpperCase() + priority.slice(1)}</span>
+          </div>
+          <div class="order-summary-item">
+            <span>Estimated Duration</span>
+            <span>${estimatedDuration} minutes</span>
+          </div>
+          <div class="order-summary-item">
+            <span>Total Price</span>
+            <span>$${formattedPrice}</span>
+          </div>
+        `;
+        
+        if (serviceType === 'car-service') {
+            const selectedServices = Array.from(document.querySelectorAll('input[name="carServices"]:checked')).map(cb => cb.nextElementSibling.textContent);
+            if (selectedServices.length > 0) {
+                const servicesList = selectedServices.join(', ');
+                orderSummaryContent.insertAdjacentHTML('beforeend', `
+                    <div class="order-summary-item">
+                        <span>Services</span>
+                        <span style="text-align: right; max-width: 60%;">${servicesList}</span>
+                    </div>
+                `);
+            }
+        }
+
+        orderSummaryContent.insertAdjacentHTML('beforeend', `
+          <div class="order-summary-item">
+            <span>Total Price</span>
+            <span>$${formattedPrice}</span>
+          </div>
+        `);
+
+        // Initialize feather icons
+        if (typeof feather !== 'undefined') {
+          feather.replace();
+        }
+      }
+      
+      // Validate form function
+      function validateOrderForm() {
+        let isValid = true;
+        
+        // Reset all feedbacks
+        document.querySelectorAll('.invalid-feedback').forEach(el => el.textContent = '');
+        document.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
+
+        // Validate customer
+        if (!document.getElementById('customerId').value) {
+          document.getElementById('customerSearch').classList.add('is-invalid');
+          document.getElementById('customerSearchFeedback').textContent = 'Please select a customer.';
+          isValid = false;
+        }
+        
+        // Validate service type
+        const serviceType = document.getElementById('serviceType').value;
+        if (!serviceType) {
+          document.getElementById('serviceTypeFeedback').textContent = 'Please select a service type.';
+          isValid = false;
+        } else {
+          // Validate service-specific fields
+          switch (serviceType) {
+            case 'car-service':
+              if (!document.getElementById('plateNumber').value) {
+                document.getElementById('plateNumber').classList.add('is-invalid');
+                document.getElementById('plateNumberFeedback').textContent = 'Plate number is required.';
+                isValid = false;
+              }
+              if (!document.getElementById('carMake').value) {
+                document.getElementById('carMake').classList.add('is-invalid');
+                document.getElementById('carMakeFeedback').textContent = 'Car make is required.';
+                isValid = false;
+              }
+              if (!document.getElementById('carModel').value) {
+                document.getElementById('carModel').classList.add('is-invalid');
+                document.getElementById('carModelFeedback').textContent = 'Car model is required.';
+                isValid = false;
+              }
+              if (!document.getElementById('vehicleType').value) {
+                document.getElementById('vehicleType').classList.add('is-invalid');
+                document.getElementById('vehicleTypeFeedback').textContent = 'Vehicle type is required.';
+                isValid = false;
+              }
+              if (document.querySelectorAll('input[name="carServices"]:checked').length === 0) {
+                  document.getElementById('carServiceTypeFeedback').textContent = 'Please select at least one service.';
+                  isValid = false;
+              }
+              break;
+            case 'tire-sales':
+              if (!document.getElementById('tireItemName').value) {
+                document.getElementById('tireItemName').classList.add('is-invalid');
+                document.getElementById('tireItemNameFeedback').textContent = 'Tire type is required.';
+                isValid = false;
+              }
+              if (!document.getElementById('tireBrand').value) {
+                document.getElementById('tireBrand').classList.add('is-invalid');
+                document.getElementById('tireBrandFeedback').textContent = 'Tire brand is required.';
+                isValid = false;
+              }
+              if (!document.getElementById('tireQuantity').value) {
+                document.getElementById('tireQuantity').classList.add('is-invalid');
+                document.getElementById('tireQuantityFeedback').textContent = 'Quantity is required.';
+                isValid = false;
+              }
+              if (!document.getElementById('tireType').value) {
+                document.getElementById('tireType').classList.add('is-invalid');
+                document.getElementById('tireTypeFeedback').textContent = 'Tire condition is required.';
+                isValid = false;
+              }
+              break;
+            case 'consultation':
+              if (!document.getElementById('inquiryType').value) {
+                document.getElementById('inquiryType').classList.add('is-invalid');
+                document.getElementById('inquiryTypeFeedback').textContent = 'Inquiry type is required.';
+                isValid = false;
+              }
+              if (!document.getElementById('inquiryQuestions').value) {
+                document.getElementById('inquiryQuestions').classList.add('is-invalid');
+                document.getElementById('inquiryQuestionsFeedback').textContent = 'Please enter the customer\'s questions.';
+                isValid = false;
+              }
+              break;
+          }
+        }
+        
+        return isValid;
+      }
+
+      // Submit order function
+      function submitOrder() {
+        try {
+          // Validate form
+          if (!validateOrderForm()) {
+            return;
+          }
+          
+          // Show loading state
+          const submitBtn = document.getElementById('submitOrderBtn');
+          const originalContent = submitBtn.innerHTML;
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Creating Order...';
+          
+          // Collect form data
+          const formData = {
+            customerId: document.getElementById('customerId').value,
+            serviceType: document.getElementById('serviceType').value,
+            priority: document.getElementById('priority').value,
+            estimatedDuration: document.getElementById('estimatedDuration').value,
+            notes: document.getElementById('notes').value
+          };
+          
+          // Add service-specific data
+          switch (formData.serviceType) {
+            case 'car-service':
+              formData.plateNumber = document.getElementById('plateNumber').value;
+              formData.carMake = document.getElementById('carMake').value;
+              formData.carModel = document.getElementById('carModel').value;
+              formData.vehicleType = document.getElementById('vehicleType').value;
+              formData.selectedServices = Array.from(document.querySelectorAll('input[name="carServices"]:checked')).map(cb => cb.value);
+              formData.problemDescription = document.getElementById('problemDescription').value;
+              break;
+            case 'tire-sales':
+              formData.tireItemName = document.getElementById('tireItemName').value;
+              formData.tireBrand = document.getElementById('tireBrand').value;
+              formData.tireQuantity = document.getElementById('tireQuantity').value;
+              formData.tireType = document.getElementById('tireType').value;
+              break;
+            case 'consultation':
+              formData.inquiryType = document.getElementById('inquiryType').value;
+              formData.contactPreference = document.getElementById('contactPreference').value;
+              formData.followUpDate = document.getElementById('followUpDate').value;
+              formData.inquiryQuestions = document.getElementById('inquiryQuestions').value;
+              break;
+          }
+          
+          // Simulate API call
+          setTimeout(() => {
+            try {
+              // This would be an actual API call in a real implementation
+              console.log('Submitting order:', formData);
+              
+              // Simulate successful response
+              const response = {
+                success: true,
+                orderId: 'ORD-' + Date.now(),
+                message: 'Order created successfully'
+              };
+              
+              if (response.success) {
+                // Show success message
+                showUserMessage(`Order ${response.orderId} created successfully!`, 'success');
+                
+                // Redirect to order tracking page after a delay
+                setTimeout(() => {
+                  window.location.href = `order-tracking.html?orderId=${response.orderId}`;
+                }, 2000);
+              } else {
+                throw new Error(response.message || 'Failed to create order');
+              }
+            } catch (error) {
+              console.error('Failed to submit order:', error);
+              showUserMessage('Failed to create order. Please try again.', 'error');
+              
+              // Restore button state
